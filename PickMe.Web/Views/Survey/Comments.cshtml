@@ -1,0 +1,159 @@
+@using System.Security.Claims
+@model PickMe.Core.Models.Survey
+
+@{
+    ViewData["Title"] = $"{Model.Title} - Yorumlar";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="mb-0">
+                    <i class="bi bi-chat-dots me-2"></i>
+                    Anket Yorumları
+                </h3>
+                <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-light">
+                    <i class="bi bi-arrow-left"></i> Ankete Dön
+                </a>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <!-- Anket Özeti -->
+            <div class="survey-summary mb-4">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h4>@Model.Title</h4>
+                        <p class="text-muted mb-2">
+                            <small>
+                                <i class="bi bi-person-circle"></i> @Model.CreatedBy?.UserName |
+                                <i class="bi bi-calendar3"></i> @Model.CreatedAt.ToString("dd.MM.yyyy HH:mm") |
+                                <i class="bi bi-chat"></i> @(Model.Comments?.Count ?? 0) Yorum
+                            </small>
+                        </p>
+                        <p class="mb-0">@Model.Description</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-flex justify-content-around">
+                            <div class="text-center">
+                                <img src="@Model.Image1Url" alt="Resim 1" class="survey-thumbnail">
+                                <div class="mt-1">
+                                    <span class="badge bg-primary">@Model.Image1Votes oy</span>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <img src="@Model.Image2Url" alt="Resim 2" class="survey-thumbnail">
+                                <div class="mt-1">
+                                    <span class="badge bg-primary">@Model.Image2Votes oy</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Yorum Formu -->
+            <div class="comment-form mb-4">
+                <form asp-action="AddComment" method="post">
+                    <input type="hidden" name="surveyId" value="@Model.Id" />
+                    <div class="form-group">
+                        <label for="content"><i class="bi bi-pencil"></i> Yorum Yaz</label>
+                        <textarea name="content" id="content" class="form-control mt-2" 
+                                rows="3" placeholder="Düşüncelerinizi paylaşın..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">
+                        <i class="bi bi-send"></i> Yorum Ekle
+                    </button>
+                </form>
+            </div>
+
+            <!-- Yorumlar Tablosu -->
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 20%">Kullanıcı</th>
+                            <th style="width: 60%">Yorum</th>
+                            <th style="width: 20%">Tarih</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Comments != null && Model.Comments.Any())
+                        {
+                            @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
+                            {
+                                <tr class="comment-row">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-person-circle text-primary me-2"></i>
+                                            <span>@comment.User?.UserName</span>
+                                        </div>
+                                    </td>
+                                    <td>@comment.Content</td>
+                                    <td>
+                                        <small class="text-muted">
+                                            @comment.CreatedAt.ToString("dd.MM.yyyy HH:mm")
+                                        </small>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="3" class="text-center text-muted py-4">
+                                    <i class="bi bi-chat-dots display-4 d-block mb-2"></i>
+                                    Henüz yorum yapılmamış. İlk yorumu siz yapın!
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.survey-summary {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.survey-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.comment-form textarea {
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+}
+
+.comment-form textarea:focus {
+    border-color: #007bff;
+    box-shadow: none;
+}
+
+.comment-row {
+    transition: background-color 0.2s ease;
+}
+
+.comment-row:hover {
+    background-color: #f8f9fa;
+}
+
+.table th {
+    border-top: 2px solid #dee2e6;
+    background-color: #f8f9fa;
+}
+
+.table td {
+    vertical-align: middle;
+}
+</style> 

@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using PickMe.Business.Services.Abstractions;
 using PickMe.Core.Models;
 using PickMe.Data;
-using PickMe.Data.Repositories;
+using PickMe.Data.Repositories.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

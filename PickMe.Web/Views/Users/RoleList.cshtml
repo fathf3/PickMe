@@ -1,0 +1,26 @@
+﻿@model List<IdentityRole>
+@{
+    ViewData["Title"] = "RoleList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Mevcut Roller</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Rol Adı</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td>@role.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="CreateRole" class="btn btn-primary">Yeni Rol Oluştur</a>
+

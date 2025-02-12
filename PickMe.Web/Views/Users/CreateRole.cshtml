@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "CreateRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Yeni Rol Oluştur</h2>
+
+<form asp-action="CreateRole" method="post">
+    <div class="form-group">
+        <label for="roleName">Rol Adı</label>
+        <input type="text" name="roleName" id="roleName" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-success mt-2">Oluştur</button>
+</form>
+
+<a asp-action="RoleList" class="btn btn-secondary mt-2">Geri Dön</a>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger mt-2">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+

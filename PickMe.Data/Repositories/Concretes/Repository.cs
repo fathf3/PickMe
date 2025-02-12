@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using PickMe.Data.Repositories.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace PickMe.Data.Repositories
+namespace PickMe.Data.Repositories.Concretes
 {
     public class Repository<T> : IRepository<T> where T : class
     {

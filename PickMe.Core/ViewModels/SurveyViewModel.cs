@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 
-namespace PickMe.Core.Models
+namespace PickMe.Core.ViewModels
 {
     public class SurveyViewModel
     {

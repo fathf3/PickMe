@@ -2,7 +2,7 @@ using PickMe.Core.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PickMe.Data.Repositories
+namespace PickMe.Data.Repositories.Abstracts
 {
     public interface ISurveyRepository : IRepository<Survey>
     {

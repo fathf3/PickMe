@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PickMe.Core.Models
+namespace PickMe.Core.ViewModels
 {
     public class LoginViewModel
     {

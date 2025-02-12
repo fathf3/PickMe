@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<UserRolesViewModel>
+
+@{
+    ViewData["Title"] = "Kullanıcı Listesi";
+}
+
+<h2>Kullanıcı Listesi</h2>
+@if (TempData["WarningMessage"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @TempData["WarningMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<a class="nav-link text-dark" asp-controller="Users" asp-action="RoleList"><p class="btn btn-primary">Role Listesi</p></a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Kullanıcı Adı</th>
+            <th>Roller</th>
+            <th>Rol Ata</th>
+            <th>Rol Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var userRole in Model)
+        {
+            <tr>
+                <td>@userRole.User.UserName</td>
+                <td>
+                    @foreach (var role in userRole.Roles)
+                    {
+                        <span class="badge bg-primary">@role</span>
+                    }
+                </td>
+                <td>
+                    <!-- Kullanıcıya rol atama formu -->
+                    <form method="post" asp-action="AssignRole" style="display:inline;">
+                        <input type="hidden" name="userId" value="@userRole.User.Id" />
+
+                        <!-- Roller seçilebilecek dropdown -->
+                        <select name="roleName" class="form-select">
+                            @foreach (var role in ViewBag.Roles as IEnumerable<IdentityRole>)
+                            {
+                                <option value="@role.Name">@role.Name</option>
+                            }
+                        </select>
+
+                        <button type="submit" class="btn btn-primary btn-sm">Rol Ata</button>
+                    </form>
+                </td>
+                <td>
+                    @foreach (var role in userRole.Roles)
+                    {
+                        <form method="post" asp-action="RemoveUserRole" style="display:inline;">
+                            <input type="hidden" name="userId" value="@userRole.User.Id" />
+                            <input type="hidden" name="roleName" value="@role" />
+                            <button type="submit" class="btn btn-danger btn-sm">@role - Sil</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PickMe.Core.Models;
+using PickMe.Data.Repositories.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PickMe.Data.Repositories
+namespace PickMe.Data.Repositories.Concretes
 {
     public class CommentRepository : Repository<Comment>, ICommentRepository
     {

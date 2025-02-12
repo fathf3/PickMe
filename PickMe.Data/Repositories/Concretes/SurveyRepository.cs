@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using PickMe.Core.Models;
+using PickMe.Data.Repositories.Abstracts;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PickMe.Data.Repositories
+namespace PickMe.Data.Repositories.Concretes
 {
     public class SurveyRepository : Repository<Survey>, ISurveyRepository
     {
@@ -32,7 +33,7 @@ namespace PickMe.Data.Repositories
                 .Include(s => s.Likes)
                 .Include(s => s.Reports)
                 .FirstOrDefaultAsync(s => s.Id == surveyId);
-                
+
         }
 
         public async Task<IEnumerable<Survey>> GetActiveSurveysAsync()

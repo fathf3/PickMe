@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using System;
 using PickMe.Business.Services.Abstractions;
+using PickMe.Core.ViewModels;
 
 namespace PickMe.Web.Controllers
 {

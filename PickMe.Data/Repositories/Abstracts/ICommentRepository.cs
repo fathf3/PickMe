@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PickMe.Data.Repositories
+namespace PickMe.Data.Repositories.Abstracts
 {
     public interface ICommentRepository : IRepository<Comment>
     {

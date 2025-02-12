@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PickMe.Business;
 using PickMe.Business.Services.Abstractions;
 using PickMe.Business.Services.Concretes;
 using PickMe.Core.Models;
 using PickMe.Data;
-using PickMe.Data.Repositories;
+using PickMe.Data.Repositories.Abstracts;
+using PickMe.Data.Repositories.Concretes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,11 +23,11 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddDefaultTokenProviders();
 
 // Configure Repository and Service Dependencies
-builder.Services.AddScoped<ISurveyRepository, SurveyRepository>();
-builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-builder.Services.AddScoped<ISurveyService, SurveyService>();
-builder.Services.AddScoped<IImageService, ImageService>();
-builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddDataService();
+builder.Services.AddBusinessService();
+
+
 
 var app = builder.Build();
 

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PickMe.Core.Models;
+using PickMe.Core.ViewModels;
 using System.Threading.Tasks;
 
 namespace PickMe.Web.Controllers

@@ -91,7 +91,7 @@ namespace PickMe.Web.Controllers
             {
                 return Json(new { success = true });
             }
-            return Json(new { success = false, message = "You have already voted for this survey." });
+            return Json(new { success = false, message = "Bu ankete daha önce oy kullandınız." });
         }
 
         [HttpPost]

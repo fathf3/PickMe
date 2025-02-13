@@ -19,7 +19,7 @@
         </div>
         <div class="card-body">
             <p class="mb-4">@Model.Description</p>
-
+            <div id="message-container" style="display:none;" class="alert alert-success"></div>
             <div class="row">
                 <div class="col-md-6 mb-3 text-center">
                     <div class="image-container">
@@ -246,4 +246,20 @@
     border-color: #007bff;
     box-shadow: none;
 }
+
+    .alert-message {
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+    }
+
+    .success-message {
+        background-color: green;
+    }
+
+    .error-message {
+        background-color: red;
+    }
 </style>

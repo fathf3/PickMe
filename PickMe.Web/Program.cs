@@ -37,7 +37,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-
+app.UseExceptionHandler("/Home/Error");
+app.UseStatusCodePagesWithRedirects("/Home/Error?code={0}");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

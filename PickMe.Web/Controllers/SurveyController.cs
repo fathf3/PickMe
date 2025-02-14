@@ -63,7 +63,7 @@ namespace PickMe.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        
+
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)
@@ -184,7 +184,7 @@ namespace PickMe.Web.Controllers
             return View(survey);
         }
 
-        [HttpPost]
+        [HttpPost("{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
@@ -195,7 +195,7 @@ namespace PickMe.Web.Controllers
             }
 
             var survey = await _surveyService.GetSurveyByIdAsync(id);
-            if (survey == null || survey.CreatedById != userId)
+            if (survey == null || !User.IsInRole("Admin"))
             {
                 return NotFound();
             }
@@ -205,17 +205,33 @@ namespace PickMe.Web.Controllers
         }
 
         // GET: Survey
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filterType)
         {
-            var surveys = await _surveyService.GetActiveSurveysAsync();
+            IEnumerable<Survey> surveys;
+
+            switch (filterType)
+            {
+                case "mostLiked":
+                    surveys = await _surveyService.GetMostLikedSurveysAsync();
+                    break;
+                case "mostCommented":
+                    surveys = await _surveyService.GetMostCommentedSurveysAsync();
+                    break;
+
+                default: // En yeni anketler (varsayılan)
+                    surveys = await _surveyService.GetActiveSurveysAsync();
+                    break;
+            }
+
             return View(surveys);
+
         }
 
         [HttpGet]
         public async Task<IActionResult> Comments(int id)
         {
             var comments = await _surveyService.GetSurveyWithCommentsAndLikeAsync(id);
-            
+
             return View(comments);
         }
     }

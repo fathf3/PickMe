@@ -10,6 +10,13 @@
 
 <div class="container mt-4">
     <div class="card">
+        @if (User.IsInRole("Admin"))
+                        {
+            <form asp-action="Delete" asp-controller="Survey" asp-route-id="@Model.Id" method="post" onsubmit="return confirm('Bu anketi silmek istediğinize emin misiniz?');">
+                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Anketi Sil</button>
+            </form>
+           
+                        }
         <div class="card-header">
             <h2>@Model.Title</h2>
             <div class="d-flex justify-content-between align-items-center">
@@ -25,10 +32,10 @@
                     <div class="image-container">
                         <img src="@Model.Image1Url" alt="Resim 1" class="survey-image img-fluid w-100 vote-button" data-survey-id="@Model.Id" data-image="1">
                         <div class="vote-count mt-2">
-                            <span class="badge bg-primary">@Model.Image1Votes oy</span>
+                          
                         </div>
                     </div>
-                    <span class="badge bg-primary">@Model.Image1Votes oy (%@image1Percentage.ToString("0.##"))</span>
+                   
                    
                 </div>
              
@@ -36,17 +43,21 @@
                     <div class="image-container ">
                         <img src="@Model.Image2Url" alt="Resim 2" class="survey-image img-fluid w-100 vote-button" data-survey-id="@Model.Id" data-image="2">
                         <div class="vote-count mt-2">
-                            <span class="badge bg-primary">@Model.Image2Votes oy</span>
+                            
                         </div>
-                        <br />
-                       
-                    </div>
-                    <span class="badge bg-secondary ">@Model.Image2Votes oy (%@image2Percentage.ToString("0.##"))</span>
+                    </div>  
                 </div>
               
             </div>
-           
-           
+            <div class="progress-container">
+                <div class="progress-bar-custom bg-blue-gradient" style="width: @image1Percentage%;">
+                    @image1Percentage.ToString("0.##")%
+                </div>
+                <div class="progress-bar-custom bg-light-blue" style="width: @image2Percentage%;">
+                    @image2Percentage.ToString("0.##")%
+                </div>
+            </div>
+            <br />
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <form asp-action="ToggleLike" method="post" class="d-inline">

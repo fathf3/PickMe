@@ -160,5 +160,20 @@ namespace PickMe.Business.Services.Concretes
             var x = await _surveyRepository.GetSurveyWithCommentsAndLikeAsync(surveyId);
             return x;
         }
+
+        public async Task<IEnumerable<Survey>> GetMostLikedSurveysAsync()
+        {
+            var x = await _surveyRepository.GetAllAsync();
+            var d = x.OrderByDescending(s => s.Likes.Count).ToList();
+            return d;
+
+        }
+        public async Task<IEnumerable<Survey>> GetMostCommentedSurveysAsync()
+        {
+            var x = await _surveyRepository.GetAllAsync();
+            var d = x.OrderByDescending(s => s.Comments.Count).ToList();
+            return d;
+
+        }
     }
 }

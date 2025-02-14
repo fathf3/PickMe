@@ -11,5 +11,6 @@ namespace PickMe.Data.Repositories.Abstracts
         Task<bool> HasUserVotedAsync(int surveyId, string userId);
         Task IncrementVoteAsync(int surveyId, bool isFirstImage);
         Task<Survey> GetSurveyWithCommentsAndLikeAsync(int surveyId);
+        
     }
 }

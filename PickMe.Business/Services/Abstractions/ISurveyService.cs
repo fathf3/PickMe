@@ -11,6 +11,8 @@ namespace PickMe.Business.Services.Abstractions
         Task<Survey> GetSurveyWithCommentsAndLikeAsync(int surveyId);
         Task<IEnumerable<Survey>> GetUserSurveysAsync(string userId);
         Task<IEnumerable<Survey>> GetActiveSurveysAsync();
+        Task<IEnumerable<Survey>> GetMostLikedSurveysAsync();
+        Task<IEnumerable<Survey>> GetMostCommentedSurveysAsync();
         Task<bool> VoteForImageAsync(int surveyId, bool isFirstImage, string userId);
         Task<bool> AddLikeAsync(int surveyId, string userId);
         Task<bool> RemoveLikeAsync(int surveyId, string userId);
